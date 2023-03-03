@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "DG",
-    "slug": "DG",
+    "slug": "bddg",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -21,10 +21,17 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.falejevv.bddg"
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "924c7b9b-0356-4a62-bc15-0df372d7bb23"
+      }
+    },
+    "owner": "falejevv"
   }
 }
