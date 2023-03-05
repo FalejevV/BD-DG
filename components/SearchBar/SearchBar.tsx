@@ -3,15 +3,15 @@ import { SearchBarClearIcon, SearchBarContainer, SearchBarInput } from "./Search
 import { NativeSyntheticEvent, Text, TextInputChangeEventData } from "react-native";
 import { TouchableWithoutFeedback } from "react-native";
 
-function SearchBar(){
-
-    const [value, setValue] = useState("");
-
+function SearchBar(props:{
+    search:string,
+    setSearch:Function
+}){
     return(
         <SearchBarContainer>
-            <SearchBarInput value={value} onChangeText={(text) => setValue(text)} placeholder="Поиск"></SearchBarInput>
-            {value.trim() !== "" &&
-                <TouchableWithoutFeedback onPress={() => setValue('')}>
+            <SearchBarInput value={props.search} onChangeText={(text) => props.setSearch(text)} placeholder="Поиск"></SearchBarInput>
+            {props.search.trim() !== "" &&
+                <TouchableWithoutFeedback onPress={() => props.setSearch('')}>
                     <SearchBarClearIcon source={require("../../assets/close.svg")} />
                 </TouchableWithoutFeedback>
             }  

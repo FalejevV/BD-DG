@@ -1,12 +1,13 @@
+import { ThemeProvider } from "styled-components"
 import styled from "styled-components/native"
 
 export const SearchBarContainer = styled.View`
     max-width: 515px;
     width:100%;
-    background-color: #F8F8F8;
+    background-color: ${({ theme }) => theme.frameColor || "red"};
     border-radius: 5px;
     height:40px;
-    border: 2px solid #32271C;
+    border: 2px solid ${({ theme }) => theme.accentColor || "red"};
 
     display: flex;
     flex-direction: row;
@@ -21,6 +22,11 @@ export const SearchBarInput = styled.TextInput`
     width:100%;
     height:100%;
     padding:0px 15px;
+
+    color: ${({ theme }) => theme.accentColor || "red"};
+    font-size: 16px;
+    font-weight: 600;
+
 `
 
 export const SearchBarClearIcon = styled.Image`
