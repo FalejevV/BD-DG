@@ -17,7 +17,7 @@ function CountryList(props:{
             <CountryListContainer>
                 <CountryText>{props.country}</CountryText>
                 <CountriesList toggle={toggleList}>
-                    {countries.map((country:string) => <CountryElement onPress={() => {props.setCountry(country); setToggleList(false)}}><CountryText>{country}</CountryText></CountryElement>)}
+                    {countries.map((country:string, index:number) => <CountryElement key={index} onPress={() => {props.setCountry(country); setToggleList(false)}}><CountryText>{country}</CountryText></CountryElement>)}
                 </CountriesList>
             </CountryListContainer>
         </TouchableWithoutFeedback>

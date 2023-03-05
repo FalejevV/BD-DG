@@ -4,8 +4,7 @@ import CountryList from "../components/CountryList/CountryList";
 
 const HeaderContainer = styled.View`
     width:100%;
-    max-width: 100vw;
-    height:fit-content;
+    padding-right: 160px;
     display:flex;
     flex-direction: row;
     align-items: center;
