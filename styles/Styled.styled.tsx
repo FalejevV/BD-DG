@@ -9,3 +9,10 @@ export const MainView = styled.SafeAreaView`
     height:100%;
     flex:1;
 `
+
+export const Divider = styled.View`
+    width:100%;
+    height:1px;
+    background-color: ${({ theme }) => theme.accentColor || "red"};
+    opacity:0.7;
+`

@@ -1,11 +1,10 @@
 import { ThemeProvider } from 'styled-components/native';
 import SearchBar from './components/SearchBar/SearchBar';
 import { MainView } from './styles/Styled.styled';
-import * as ScreenOrientation from 'expo-screen-orientation'
-import Header from './layout/Header';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import CountrySelectWindow from './layout/CountrySelectWindow/CountrySelectWindow';
-ScreenOrientation.unlockAsync();
+import HomePage from './layout/HomePage/HomePage';
+import randomData from './randomData';
 
 const lightTheme = {
   bgColor:"#E1D5C9",
@@ -23,12 +22,27 @@ export default function App() {
   const [country,setCountry] = useState("Все");
   const [countryToggleWindow,setToggleCountryWindow] = useState(false);
   const [search,setSearch] = useState("");
+  const [data, setData] = useState(randomData);
+  const [usedCountries, setUsedCountries] = useState<string[]>([]);
+
+  useEffect(() => {
+      let usedCountriesArray:string[] = [];
+
+      data.forEach(route => {
+          if(!usedCountriesArray.includes(route.country)){
+              usedCountriesArray.push(route.country);
+          }
+      });
+      
+      usedCountriesArray.unshift("Все");
+      setUsedCountries(usedCountriesArray);
+  }, [data]);
 
   return (
     <ThemeProvider theme={lightTheme}>
       <MainView>
-        {!countryToggleWindow && <Header search={search} setSearch={setSearch}  country={country} setToggleCountryWindow={setToggleCountryWindow}/>}
-        {countryToggleWindow && <CountrySelectWindow setCountry={setCountry} setToggleCountryWindow={setToggleCountryWindow} />}
+        {!countryToggleWindow && <HomePage data={data} search={search} setSearch={setSearch}  country={country} setToggleCountryWindow={setToggleCountryWindow}/>}
+        {countryToggleWindow && <CountrySelectWindow usedCountries={usedCountries} setCountry={setCountry} setToggleCountryWindow={setToggleCountryWindow} />}
       </MainView>
     </ThemeProvider>
   );

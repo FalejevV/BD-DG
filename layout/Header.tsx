@@ -16,7 +16,7 @@ function Header(props:{
     country:string,
     setToggleCountryWindow:Function,
     search:string,
-    setSearch:Function
+    setSearch:Function,
 }){
     return(
         <HeaderContainer>

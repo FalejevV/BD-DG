@@ -1,5 +1,4 @@
 import { CSWHeaderContainer, CSWScrollView, CSWTitle, CloseIconContainer, CountryButtonWrapper, CountrySelectWindowContainer } from "./CountrySelectWindow.styled";
-import countries from "../../countries";
 import CButton from "../../components/CButton/CButton";
 import {SvgXml} from "react-native-svg";
 import { TouchableWithoutFeedback } from "react-native";
@@ -7,7 +6,9 @@ import { TouchableWithoutFeedback } from "react-native";
 function CountrySelectWindow(props:{
     setCountry:Function,
     setToggleCountryWindow:Function,
+    usedCountries:string[],
 }){
+
     return(
         <CountrySelectWindowContainer>
             <CSWHeaderContainer>
@@ -19,7 +20,7 @@ function CountrySelectWindow(props:{
                 </TouchableWithoutFeedback>
             </CSWHeaderContainer>
             <CSWScrollView >
-                {countries.map((country:string, index:number) => <CountryButtonWrapper key={index}><CButton text={country} onPress={() => {props.setCountry(country); props.setToggleCountryWindow(false)}} /></CountryButtonWrapper>)}
+                {props.usedCountries.map((country:string, index:number) => <CountryButtonWrapper key={index}><CButton text={country} onPress={() => {props.setCountry(country); props.setToggleCountryWindow(false)}} /></CountryButtonWrapper>)}
             </CSWScrollView>
         </CountrySelectWindowContainer>
     )
