@@ -1,6 +1,6 @@
 import styled from "styled-components/native";
 import SearchBar from "../components/SearchBar/SearchBar";
-import CountryList from "../components/CountryList/CountryList";
+import CountryListButton from "../components/CountryList/CountryListButton";
 
 const HeaderContainer = styled.View`
     width:100%;
@@ -14,14 +14,14 @@ const HeaderContainer = styled.View`
 
 function Header(props:{
     country:string,
-    setCountry:Function,
+    setToggleCountryWindow:Function,
     search:string,
     setSearch:Function
 }){
     return(
         <HeaderContainer>
             <SearchBar search={props.search} setSearch={props.setSearch} />
-            <CountryList country={props.country} setCountry={props.setCountry} />
+            <CountryListButton country={props.country} setToggleCountryWindow={props.setToggleCountryWindow} />
         </HeaderContainer>
     )
 }
