@@ -4,6 +4,8 @@ import Header from "../Header";
 import { CardGridScroll, CardGridWrap, EmptyItem, LoadMoreContainer, LoadMoreText } from "./HomePage.styled";
 import uuid from 'react-native-uuid';
 import { TouchableWithoutFeedback } from "react-native";
+import { Text } from "react-native";
+import { getData } from "../../database";
 
 
 function HomePage(props:{
@@ -15,8 +17,10 @@ function HomePage(props:{
 }){
 
     const [viewCount, setViewCount] = useState(6);
-    
-
+    const [tempData, setTempData] = useState("");
+    useEffect(() => {
+        getData().then(res => setTempData(res));
+    },[]);
 
     function increaseViewCount(){
         if(viewCount + 6 > props.data.length){
@@ -54,10 +58,10 @@ function HomePage(props:{
 
         return resultArray;
     }
-
     return(
         <>
             <Header search={props.search} setSearch={props.setSearch}  country={props.country} setToggleCountryWindow={props.setToggleCountryWindow}/>
+                <Text>{tempData}</Text>
                 <CardGridScroll>
                     <CardGridWrap>
                         {getRoutes().map(route => <RouteCard key={uuid.v4().toString()} companyName={route.companyName} country={route.country} address={route.address} cIndex={route.cIndex.toString()} />)}
