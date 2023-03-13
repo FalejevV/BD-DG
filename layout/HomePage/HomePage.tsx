@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import RouteCard from "../../components/RouteCard/RouteCard";
 import Header from "../Header";
 import { CardGridScroll, CardGridWrap, EmptyItem, LoadMoreContainer, LoadMoreText } from "./HomePage.styled";
 import uuid from 'react-native-uuid';
 import { TouchableWithoutFeedback } from "react-native";
-import { Text } from "react-native";
-import { getData } from "../../database";
+import { IRoute } from "../../interface";
+import FloatingMenu from "../FloatingMenu/FloatingMenu";
 
 
 function HomePage(props:{
@@ -13,14 +13,11 @@ function HomePage(props:{
     setToggleCountryWindow:Function,
     search:string,
     setSearch:Function,
-    data: { companyName: string; country: string; address: string; cIndex: number; }[],
+    data: IRoute[],
 }){
 
     const [viewCount, setViewCount] = useState(6);
-    const [tempData, setTempData] = useState("");
-    useEffect(() => {
-        getData().then(res => setTempData(res));
-    },[]);
+
 
     function increaseViewCount(){
         if(viewCount + 6 > props.data.length){
@@ -31,15 +28,15 @@ function HomePage(props:{
     }
 
     function filterRoutes(){
-        let resultArray: { companyName: string; country: string; address: string; cIndex: number; }[] = [];
+        let resultArray: IRoute[] = [];
         props.data.forEach((route) => {
             if(props.country === "Все"){
-                if(route.companyName.toLowerCase().includes(props.search.toLowerCase())){
+                if(route.company.toLowerCase().includes(props.search.toLowerCase())){
                     resultArray.push(route);
                 }
             }else{
                 if(route.country.toLowerCase() === props.country.toLowerCase()){
-                    if(route.companyName.toLowerCase().includes(props.search.toLowerCase())){
+                    if(route.company.toLowerCase().includes(props.search.toLowerCase())){
                         resultArray.push(route);
                     }
                 }
@@ -49,7 +46,7 @@ function HomePage(props:{
     }
 
     function getRoutes(){
-        let resultArray: { companyName: string; country: string; address: string; cIndex: number; }[] = [];
+        let resultArray: IRoute[] = [];
         filterRoutes().forEach((route) => {
             if(resultArray.length < viewCount){
                 resultArray.push(route);
@@ -61,22 +58,21 @@ function HomePage(props:{
     return(
         <>
             <Header search={props.search} setSearch={props.setSearch}  country={props.country} setToggleCountryWindow={props.setToggleCountryWindow}/>
-                <Text>{tempData}</Text>
-                <CardGridScroll>
-                    <CardGridWrap>
-                        {getRoutes().map(route => <RouteCard key={uuid.v4().toString()} companyName={route.companyName} country={route.country} address={route.address} cIndex={route.cIndex.toString()} />)}
-                        {viewCount >= filterRoutes().length && <EmptyItem />}
-                        {viewCount < filterRoutes().length && 
-                            <LoadMoreContainer>
-                                <TouchableWithoutFeedback onPress={increaseViewCount}>
-                                    <LoadMoreText>Загрузить еще</LoadMoreText>
-                                </TouchableWithoutFeedback>
-                            </LoadMoreContainer>
-                        }
+            <CardGridScroll>
+                <CardGridWrap>
+                    {getRoutes().map(route => <RouteCard key={uuid.v4().toString()} companyName={route.company} country={route.country} address={route.address} cIndex={route.index.toString()} />)}
+                    {viewCount >= filterRoutes().length && <EmptyItem />}
+                    {viewCount < filterRoutes().length && 
+                        <LoadMoreContainer>
+                            <TouchableWithoutFeedback onPress={increaseViewCount}>
+                                <LoadMoreText>Загрузить еще</LoadMoreText>
+                            </TouchableWithoutFeedback>
+                        </LoadMoreContainer>
+                    }
                         
-                    </CardGridWrap>
-                </CardGridScroll>
-            
+                </CardGridWrap>
+            </CardGridScroll>
+            <FloatingMenu />
         </>
     )
 }

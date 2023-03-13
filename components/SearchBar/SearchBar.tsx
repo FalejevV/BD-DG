@@ -12,7 +12,7 @@ function SearchBar(props:{
             <SearchBarInput value={props.search} onChangeText={(text) => props.setSearch(text)} placeholder="Поиск"></SearchBarInput>
             {props.search.trim() !== "" &&
                 <TouchableWithoutFeedback onPress={() => props.setSearch('')}>
-                    <SearchBarClearIcon source={require("../../assets/close.svg")} />
+                    <SearchBarClearIcon source={require("../../assets/plus.png")} />
                 </TouchableWithoutFeedback>
             }  
         </SearchBarContainer>

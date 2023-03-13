@@ -1,8 +1,7 @@
 import styled from "styled-components/native";
 import SearchBar from "../components/SearchBar/SearchBar";
 import CountryListButton from "../components/CountryList/CountryListButton";
-import CButton from "../components/CButton/CButton";
-import { insertTable } from "../database";
+
 const HeaderContainer = styled.View`
     width:100%;
     padding-right: 160px;
@@ -23,7 +22,6 @@ function Header(props:{
         <HeaderContainer>
             <SearchBar search={props.search} setSearch={props.setSearch} />
             <CountryListButton country={props.country} setToggleCountryWindow={props.setToggleCountryWindow} />
-            <CButton onPress={() => insertTable()} text={"ADD"} />
         </HeaderContainer>
     )
 }
