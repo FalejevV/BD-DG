@@ -8,7 +8,7 @@ function CountryListButton(props:{
 }){
 
     return(
-        <TouchableWithoutFeedback onPress={() => props.setWindowToggle("country")}>
+        <TouchableWithoutFeedback onPress={() => props.setWindowToggle()}>
             <CountryListContainer>
                 <CountryText>{props.country}</CountryText>
             </CountryListContainer>

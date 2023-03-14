@@ -20,9 +20,6 @@ export interface IRoute{
         cafe?:boolean,
         hotel?:boolean
     },
-    addInfo?:{
-        title:string,
-        text:string,
-    }[]
+    addInfo?:string,
 
 }

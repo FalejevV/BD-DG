@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import RouteCard from "../../components/RouteCard/RouteCard";
 import Header from "../Header";
-import { CardGridScroll, CardGridWrap, EmptyItem, LoadMoreContainer, LoadMoreText } from "./HomePage.styled";
+import { CardGridScroll, CardGridWrap, EmptyItem, LoadMoreContainer, LoadMoreText, TotalConterContainer, TotalCounterText } from "./HomePage.styled";
 import uuid from 'react-native-uuid';
 import { TouchableWithoutFeedback } from "react-native";
 import { IRoute } from "../../interface";
@@ -17,7 +17,7 @@ function HomePage(props:{
 }){
 
     const [viewCount, setViewCount] = useState(6);
-
+    const [filteredRoutes,setFilteredRoutes] = useState<IRoute[]>([]);
 
     function increaseViewCount(){
         if(viewCount + 6 > props.data.length){
@@ -42,12 +42,12 @@ function HomePage(props:{
                 }
             }
         })
-        return resultArray;
+        setFilteredRoutes(resultArray);
     }
 
     function getRoutes(){
         let resultArray: IRoute[] = [];
-        filterRoutes().forEach((route) => {
+        filteredRoutes.forEach((route) => {
             if(resultArray.length < viewCount){
                 resultArray.push(route);
             }
@@ -55,14 +55,22 @@ function HomePage(props:{
 
         return resultArray;
     }
+
+    useEffect(() => {
+        filterRoutes();
+    }, [props.search, props.data]);
+
     return(
         <>
-            <Header search={props.search} setSearch={props.setSearch}  country={props.country} setWindowToggle={props.setWindowToggle}/>
+            <Header search={props.search} setSearch={props.setSearch}  country={props.country} setWindowToggle={() => props.setWindowToggle("country")}/>
+            <TotalConterContainer>
+                <TotalCounterText>Найдено записей: {filteredRoutes.length} </TotalCounterText>
+            </TotalConterContainer>
             <CardGridScroll>
                 <CardGridWrap>
                     {getRoutes().map(route => <RouteCard key={uuid.v4().toString()} companyName={route.company} country={route.country} address={route.address} cIndex={route.index.toString()} />)}
-                    {viewCount >= filterRoutes().length && <EmptyItem />}
-                    {viewCount < filterRoutes().length && 
+                    {viewCount >= filteredRoutes.length && <EmptyItem />}
+                    {viewCount < filteredRoutes.length && 
                         <LoadMoreContainer>
                             <TouchableWithoutFeedback onPress={increaseViewCount}>
                                 <LoadMoreText>Загрузить еще</LoadMoreText>

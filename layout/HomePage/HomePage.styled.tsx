@@ -37,3 +37,20 @@ export const LoadMoreText = styled.Text`
     border:2px solid ${({ theme }) => theme.accentColor};
     border-radius: 5px;
 `
+
+export const TotalConterContainer = styled.View`
+    width:100%;
+    height:50px;
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    border-bottom-width: 1px;
+    border-bottom-color:${({ theme }) => theme.accentColor || "red"};
+    margin-bottom: 20px;
+`
+
+export const TotalCounterText = styled.Text`
+    color:${({ theme }) => theme.accentColor || "red"};
+    font-size:18px;
+`

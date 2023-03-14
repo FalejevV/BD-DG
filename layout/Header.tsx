@@ -21,7 +21,7 @@ function Header(props:{
     return(
         <HeaderContainer>
             <SearchBar search={props.search} setSearch={props.setSearch} />
-            <CountryListButton country={props.country} setWindowToggle={props.setWindowToggle} />
+            <CountryListButton country={props.country} setWindowToggle={() => props.setWindowToggle()} />
         </HeaderContainer>
     )
 }

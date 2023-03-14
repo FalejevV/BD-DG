@@ -7,6 +7,7 @@ import { readFile } from './database';
 import { IRoute } from './interface';
 import NewRoutePage from './layout/NewRoutePage/NewRoutePage';
 import { BackHandler } from 'react-native';
+import countries from './countries';
 
 const lightTheme = {
   bgColor:"#E1D5C9",
@@ -27,7 +28,7 @@ export default function App() {
   const [data, setData] = useState<IRoute[]>([]);
   const [usedCountries, setUsedCountries] = useState<string[]>([]);
 
-  
+  const [newCountrySelect, setNewCountrySelect] = useState("Страна");
   useEffect(() => {
     const subscription = BackHandler.addEventListener('hardwareBackPress', () => {
       if (windowToggle.trim() !== "") {
@@ -62,8 +63,9 @@ export default function App() {
     <ThemeProvider theme={lightTheme}>
       <MainView>
         {windowToggle.trim() === "" && <HomePage data={data} search={search} setSearch={setSearch}  country={country} setWindowToggle={setWindowToggle}/>}
-        {windowToggle === "country" && <CountrySelectWindow usedCountries={usedCountries} setCountry={setCountry} setWindowToggle={setWindowToggle} />}
-        {windowToggle === "new route" && <NewRoutePage setWindowToggle={setWindowToggle} windowToggle={windowToggle}/> }
+        {windowToggle === "country" && <CountrySelectWindow usedCountries={usedCountries} setCountry={setCountry} setWindowToggle={() => setWindowToggle("")} />}
+        {windowToggle === "new route country" && <CountrySelectWindow usedCountries={countries.slice(1,countries.length)} setCountry={setNewCountrySelect} setWindowToggle={() => setWindowToggle("new route")} />}
+        {windowToggle === "new route" && <NewRoutePage countrySelected={newCountrySelect} setWindowToggle={setWindowToggle} windowToggle={windowToggle}/> }
       </MainView>
     </ThemeProvider>
   );

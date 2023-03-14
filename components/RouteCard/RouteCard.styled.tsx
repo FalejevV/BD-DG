@@ -1,4 +1,3 @@
-import { SvgXml } from "react-native-svg";
 import styled from "styled-components/native";
 
 export const RouteCardContainer = styled.View`
@@ -37,11 +36,10 @@ export const AboutTextContainer = styled.View`
     padding-right:60px;
 `
 
-export const AboutSVG = styled(SvgXml)`
-    fill:${({ theme }) => theme.accentColor || "red"};
-    opacity:0.7;
+export const AboutSVG = styled.Image`
+    opacity:0.6;
     width:50px;
-    height:50px;
+    height:40px;
     margin:0 auto;
     margin-top:auto;
 `

@@ -7,7 +7,7 @@ function FloatingMenu(props:{
 }){
     return(
         <FloatingMenuContainer>
-            <ImageButton onPress={() => props.setWindowToggle("new route")} imageName={("plus")}/>
+            <ImageButton onPress={() => props.setWindowToggle("new route country")} imageName={("plus")}/>
         </FloatingMenuContainer>
     )
 }
