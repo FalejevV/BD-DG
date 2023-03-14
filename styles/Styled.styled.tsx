@@ -16,3 +16,9 @@ export const Divider = styled.View`
     background-color: ${({ theme }) => theme.accentColor || "red"};
     opacity:0.7;
 `
+
+export const Title = styled.Text`
+    font-size: 20px;
+    ${({ theme }) => theme.accentColor || "red"};
+    font-weight: bold;
+`

@@ -4,11 +4,11 @@ import { TouchableWithoutFeedback } from "react-native";
 
 function CountryListButton(props:{
     country:string,
-    setToggleCountryWindow:Function,
+    setWindowToggle:Function,
 }){
 
     return(
-        <TouchableWithoutFeedback onPress={() => props.setToggleCountryWindow(true)}>
+        <TouchableWithoutFeedback onPress={() => props.setWindowToggle("country")}>
             <CountryListContainer>
                 <CountryText>{props.country}</CountryText>
             </CountryListContainer>

@@ -1,14 +1,18 @@
 import { TouchableOpacity } from "react-native";
 import { IBImage, ImageButtonContainer } from "./ImageButton.styled";
+import images from "../../images";
+
+
 
 function ImageButton(props:{
     onPress:Function,
-    image:JSX.Element,
+    imageName:keyof typeof images
 }){
+
     return(
         <TouchableOpacity onPress={() => props.onPress()}>
             <ImageButtonContainer>
-                {props.image}
+                <IBImage source={images[props.imageName]} />
             </ImageButtonContainer>
         </TouchableOpacity>
     )

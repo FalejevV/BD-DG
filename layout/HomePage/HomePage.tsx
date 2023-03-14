@@ -10,7 +10,7 @@ import FloatingMenu from "../FloatingMenu/FloatingMenu";
 
 function HomePage(props:{
     country:string,
-    setToggleCountryWindow:Function,
+    setWindowToggle:Function,
     search:string,
     setSearch:Function,
     data: IRoute[],
@@ -57,7 +57,7 @@ function HomePage(props:{
     }
     return(
         <>
-            <Header search={props.search} setSearch={props.setSearch}  country={props.country} setToggleCountryWindow={props.setToggleCountryWindow}/>
+            <Header search={props.search} setSearch={props.setSearch}  country={props.country} setWindowToggle={props.setWindowToggle}/>
             <CardGridScroll>
                 <CardGridWrap>
                     {getRoutes().map(route => <RouteCard key={uuid.v4().toString()} companyName={route.company} country={route.country} address={route.address} cIndex={route.index.toString()} />)}
@@ -72,7 +72,7 @@ function HomePage(props:{
                         
                 </CardGridWrap>
             </CardGridScroll>
-            <FloatingMenu />
+            <FloatingMenu setWindowToggle={props.setWindowToggle} />
         </>
     )
 }

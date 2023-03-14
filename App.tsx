@@ -1,12 +1,12 @@
 import { ThemeProvider } from 'styled-components/native';
 import { MainView } from './styles/Styled.styled';
-import { useEffect, useState, version } from 'react';
+import { useEffect, useState } from 'react';
 import CountrySelectWindow from './layout/CountrySelectWindow/CountrySelectWindow';
 import HomePage from './layout/HomePage/HomePage';
-import randomData from './randomData';
-import * as FileSystem from 'expo-file-system';
 import { readFile } from './database';
-import { IDBFile, IRoute } from './interface';
+import { IRoute } from './interface';
+import NewRoutePage from './layout/NewRoutePage/NewRoutePage';
+import { BackHandler } from 'react-native';
 
 const lightTheme = {
   bgColor:"#E1D5C9",
@@ -21,13 +21,25 @@ const darkTheme = {
 
 
 export default function App() {
-
-  
   const [country,setCountry] = useState("Все");
-  const [countryToggleWindow,setToggleCountryWindow] = useState(false);
+  const [windowToggle, setWindowToggle] = useState("");
   const [search,setSearch] = useState("");
   const [data, setData] = useState<IRoute[]>([]);
   const [usedCountries, setUsedCountries] = useState<string[]>([]);
+
+  
+  useEffect(() => {
+    const subscription = BackHandler.addEventListener('hardwareBackPress', () => {
+      if (windowToggle.trim() !== "") {
+        setWindowToggle("");
+        return true;
+      }else{
+        return false;
+      }
+    });
+    
+    return () => subscription.remove();
+  },[windowToggle]);
 
   useEffect(() => {
       let usedCountriesArray:string[] = [];
@@ -49,8 +61,9 @@ export default function App() {
   return (
     <ThemeProvider theme={lightTheme}>
       <MainView>
-        {!countryToggleWindow && <HomePage data={data} search={search} setSearch={setSearch}  country={country} setToggleCountryWindow={setToggleCountryWindow}/>}
-        {countryToggleWindow && <CountrySelectWindow usedCountries={usedCountries} setCountry={setCountry} setToggleCountryWindow={setToggleCountryWindow} />}
+        {windowToggle.trim() === "" && <HomePage data={data} search={search} setSearch={setSearch}  country={country} setWindowToggle={setWindowToggle}/>}
+        {windowToggle === "country" && <CountrySelectWindow usedCountries={usedCountries} setCountry={setCountry} setWindowToggle={setWindowToggle} />}
+        {windowToggle === "new route" && <NewRoutePage setWindowToggle={setWindowToggle} windowToggle={windowToggle}/> }
       </MainView>
     </ThemeProvider>
   );

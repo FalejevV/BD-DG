@@ -14,14 +14,14 @@ const HeaderContainer = styled.View`
 
 function Header(props:{
     country:string,
-    setToggleCountryWindow:Function,
+    setWindowToggle:Function,
     search:string,
     setSearch:Function,
 }){
     return(
         <HeaderContainer>
             <SearchBar search={props.search} setSearch={props.setSearch} />
-            <CountryListButton country={props.country} setToggleCountryWindow={props.setToggleCountryWindow} />
+            <CountryListButton country={props.country} setWindowToggle={props.setWindowToggle} />
         </HeaderContainer>
     )
 }
