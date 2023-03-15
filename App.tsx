@@ -63,8 +63,8 @@ export default function App() {
     <ThemeProvider theme={lightTheme}>
       <MainView>
         {windowToggle.trim() === "" && <HomePage data={data} search={search} setSearch={setSearch}  country={country} setWindowToggle={setWindowToggle}/>}
-        {windowToggle === "country" && <CountrySelectWindow usedCountries={usedCountries} setCountry={setCountry} setWindowToggle={() => setWindowToggle("")} />}
-        {windowToggle === "new route country" && <CountrySelectWindow usedCountries={countries.slice(1,countries.length)} setCountry={setNewCountrySelect} setWindowToggle={() => setWindowToggle("new route")} />}
+        {windowToggle === "country" && <CountrySelectWindow setWindowToggleCustom={setWindowToggle} usedCountries={usedCountries} setCountry={setCountry} setWindowToggle={() => setWindowToggle("")} />}
+        {windowToggle === "new route country" && <CountrySelectWindow setWindowToggleCustom={setWindowToggle} usedCountries={countries.slice(1,countries.length)} setCountry={setNewCountrySelect} setWindowToggle={() => setWindowToggle("new route")} />}
         {windowToggle === "new route" && <NewRoutePage countrySelected={newCountrySelect} setWindowToggle={setWindowToggle} windowToggle={windowToggle}/> }
       </MainView>
     </ThemeProvider>

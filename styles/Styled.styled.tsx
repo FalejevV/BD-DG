@@ -1,4 +1,4 @@
-import styled from 'styled-components/native';
+import styled, { css } from 'styled-components/native';
 
 export const MainView = styled.SafeAreaView`
     display: flex;
@@ -15,6 +15,19 @@ export const Divider = styled.View`
     height:1px;
     background-color: ${({ theme }) => theme.accentColor || "red"};
     opacity:0.7;
+`
+
+export const VerticalDivider = styled.View<{
+    isSmall?: boolean,
+}>`
+    width:1px;
+    height:100%;
+    background-color: ${({ theme }) => theme.accentColor || "red"};
+    opacity:0.7;
+
+    ${({ isSmall }) => isSmall && css`
+        display:none;
+    `}
 `
 
 export const Title = styled.Text`

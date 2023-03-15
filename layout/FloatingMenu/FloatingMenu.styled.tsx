@@ -4,7 +4,6 @@ export const FloatingMenuContainer = styled.View`
     position: absolute;
     bottom: 20px;
     left:20px;
-    width:70px;
     border:2px solid ${({ theme }) => theme.accentColor};
     border-radius: 5px;
     display: flex;

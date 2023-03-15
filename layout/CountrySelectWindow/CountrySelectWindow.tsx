@@ -10,6 +10,7 @@ function CountrySelectWindow(props:{
     setCountry:Function,
     setWindowToggle:Function,
     usedCountries:string[],
+    setWindowToggleCustom:Function,
 }){
       
     return(
@@ -18,7 +19,7 @@ function CountrySelectWindow(props:{
                 <Title>Выбор страны</Title>
                 <TouchableWithoutFeedback onPress={() => props.setWindowToggle()}>
                     <CloseIconContainer>
-                        <ImageButton onPress={() => props.setWindowToggle()} imageName={"close"}  />
+                        <ImageButton onPress={() => props.setWindowToggleCustom("")} imageName={"close"}  />
                     </CloseIconContainer>
                 </TouchableWithoutFeedback>
             </CSWHeaderContainer>

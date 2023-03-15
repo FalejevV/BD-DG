@@ -1,4 +1,4 @@
-import styled from "styled-components/native";
+import styled, { css } from "styled-components/native";
 
 export const NewRoutePageContainer = styled.View`
     width:100%;
@@ -26,11 +26,38 @@ export const FormScroll = styled.ScrollView`
     height:100%;
 `
 
-export const FormContainer = styled.View`
+export const FormContainer = styled.View<{
+    isSmall: boolean,
+}>`
+    width:100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap:15px;
+
+    ${({ isSmall }) => isSmall && css`
+        flex-direction: column;
+        justify-content: flex-start;
+    `}
+`
+
+export const InputsContainer = styled.View<{
+    isSmall: boolean,
+}>`
     display:flex;
     flex-direction: column;
     gap:15px;
+    width:100%;
+    max-width:500px;
 
+    ${({ isSmall }) => isSmall && css`
+        max-width:100%;
+    `}
+`
+
+export const CheckBoxesContainer = styled.View`
+    min-width: 400px;
+    width:100%;
 `
 
 export const LineFlexContainer = styled.View`
