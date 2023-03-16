@@ -53,7 +53,7 @@ function HomePage(props:{
             }
         });
 
-        return resultArray;
+        return resultArray.reverse();
     }
 
     useEffect(() => {

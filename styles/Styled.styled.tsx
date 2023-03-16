@@ -35,3 +35,18 @@ export const Title = styled.Text`
     ${({ theme }) => theme.accentColor || "red"};
     font-weight: bold;
 `
+
+export const StatusText = styled.Text<{
+    alert:boolean,
+}>`
+    padding:10px 20px;
+    background-color: ${({ theme }) => theme.frameColor || "red"};
+    border-radius: 2px solid ${({ theme }) => theme.accentColor || "red"};
+    font-size: 16px;
+    color: ${({ theme }) => theme.accentColor || "red"};
+    
+    ${({ alert }) => alert && css`
+        color:#480000;
+        border:2px solid #480000;
+    `}
+`

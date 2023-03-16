@@ -1,6 +1,6 @@
 import * as FileSystem from 'expo-file-system';
 import randomData from './randomData';
-import { IDBFile } from './interface';
+import { IDBFile, IRoute } from './interface';
 
 const fileName = "DGJSONlolz.txt";
 
@@ -23,6 +23,4 @@ const readFile = async () :Promise<IDBFile> => {
     }
   });
 }
-
-  
 export { saveFile, readFile };

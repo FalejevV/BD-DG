@@ -1,11 +1,10 @@
-import React, { Dimensions } from "react-native";
+import React, { Dimensions, TouchableWithoutFeedback } from "react-native";
 import ImageButton from "../../components/ImageButton/ImageButton";
 import { Title, VerticalDivider } from "../../styles/Styled.styled";
-import { CheckBoxesContainer, CloseContainer, FormContainer, FormScroll, InputsContainer, LineFlexContainer, NewRoutePageContainer, NewRoutePageHeader } from "./NewRoutePage.styled";
+import { CheckBoxesContainer, CloseContainer, FormContainer, FormScroll, InputsContainer, LineFlexContainer, NewRoutePageContainer, NewRoutePageHeader, NewRouteSubmitButtonText } from "./NewRoutePage.styled";
 import InputField from "../../components/InputField/InputField";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import CCheckBox from "../../components/CCheckBox/CCheckBox";
-import '@expo/match-media';
 import * as ScreenOrientation from 'expo-screen-orientation';
 
 
@@ -13,6 +12,7 @@ function NewRoutePage(props:{
     setWindowToggle:Function,
     windowToggle:string,
     countrySelected:string,
+    addNewRoute:Function,
 }){
 
     const [isSmallScreenMedia, setIsSmallScreenMedia] = useState(false);
@@ -37,15 +37,45 @@ function NewRoutePage(props:{
         };
     }, []);
       
-    const nameRef = useRef(null);
-    const addressRef = useRef(null);
-    const indexRef = useRef(null);
+    const [name,setName] = useState("");
+    const [city, setCity] = useState("");
+    const [address,setAddress] = useState("");
+    const [index,setIndex] = useState("");
 
-    const latRef = useRef(null);
-    const longRef = useRef(null);
+    const [lat,setLat] = useState("");
+    const [long,setLong] = useState("");
 
-    const addInfo = useRef(null);
+    const [addInfo,setAddInfo] = useState("");
     
+    const [isHotelNear, setIsHotelNear] = useState(0);
+    const [isParking, setIsParking] = useState(0);
+    const [isShopNear, setIsShopNear] = useState(0);
+
+    function saveRoute(){
+        if(name.trim() !== "" && address.trim() !== "" && index.trim() !== "" && lat.trim() !== "" && long.trim() !== "" && city.trim() !== ""){
+            let newRoute = {
+                company:name,
+                country: props.countrySelected,
+                city:city,
+                address:address,
+                index:index,
+                cords:{
+                    lat:Number(lat),
+                    long:Number(long),
+                },
+                checkMarks:{
+                    parking: isParking,
+                    shopNear:isShopNear,
+                    hotelNear:isParking
+                },
+                addInfo: addInfo,
+            }
+            props.addNewRoute(newRoute);
+            props.setWindowToggle("");
+        }else{
+            alert("Все поля кроме 'Дополнительная информация' должны быть заполнены");
+        }
+    }
 
     return(
         <NewRoutePageContainer>
@@ -60,25 +90,35 @@ function NewRoutePage(props:{
                 <FormContainer isSmall={isSmallScreenMedia}>
                     <InputsContainer isSmall={isSmallScreenMedia}>
                         <Title>Страна --- {props.countrySelected}</Title>
-                        <InputField title={"Название фирмы"} name={"countryName"} inputRef={nameRef} />
 
                         <LineFlexContainer>
-                            <InputField title={"Адрес"} name={"address"} inputRef={addressRef} />
-                            <InputField title={"Индекс"} name={"index"} inputRef={indexRef} maxWidth="175px" />
+                            <InputField title={"Название фирмы"} name={"countryName"} value={name} setValue={setName}/>
+                            <InputField title={"Город"} name={"city"} value={city} setValue={setCity} maxWidth="175px" />
                         </LineFlexContainer>
 
                         <LineFlexContainer>
-                            <InputField title={"Широта"} name={"lat"} inputRef={latRef} maxWidth="100px"/>
-                            <InputField title={"Долгота"} name={"long"} inputRef={longRef} maxWidth="100px"/>
+                            <InputField title={"Адрес"} name={"address"} value={address} setValue={setAddress} />
+                            <InputField title={"Индекс"} name={"index"} value={index} setValue={setIndex} maxWidth="175px" />
                         </LineFlexContainer>
 
-                        <InputField multiLine={true} title={"Дополнительная информация"} name={"addInfo"} inputRef={addInfo}/>
+                        <LineFlexContainer>
+                            <InputField title={"Широта"} name={"lat"} value={lat} setValue={setLat} maxWidth="100px"/>
+                            <InputField title={"Долгота"} name={"long"} value={long} setValue={setLong} maxWidth="100px"/>
+                        </LineFlexContainer>
+
+                        <InputField multiLine={true} title={"Дополнительная информация"} name={"addInfo"} value={addInfo} setValue={setAddInfo}/>
                     </InputsContainer>
 
                     <VerticalDivider isSmall={isSmallScreenMedia} ></VerticalDivider>
 
-                    <CheckBoxesContainer>
-                        <CCheckBox />
+                    <CheckBoxesContainer isSmall={isSmallScreenMedia}>
+                        <CCheckBox value={isParking} setValue={setIsParking} title={"Парковка"} />
+                        <CCheckBox value={isShopNear} setValue={setIsShopNear} title={"Магазин рядом"} />
+                        <CCheckBox value={isHotelNear} setValue={setIsHotelNear} title={"Отель рядом"} />
+                        
+                        <TouchableWithoutFeedback onPress={saveRoute}>
+                            <NewRouteSubmitButtonText isSmall={isSmallScreenMedia}>Сохранить запись</NewRouteSubmitButtonText>
+                        </TouchableWithoutFeedback>
                     </CheckBoxesContainer>
 
                 </FormContainer>

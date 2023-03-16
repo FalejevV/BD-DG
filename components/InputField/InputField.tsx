@@ -5,17 +5,16 @@ import { NativeSyntheticEvent, TextInput, TextInputChangeEventData } from "react
 function InputField(props:{
     title:string,
     name:string,
-    inputRef:any,
     maxWidth?:string,
-    multiLine?:boolean
+    multiLine?:boolean,
+    value:string,
+    setValue:Function,
 }){
-
-    const[value,setValue] = useState("");
 
     return(
         <InputFieldContainer maxWidth={props.maxWidth || "300px"}>
             <InputTitle>{props.title}</InputTitle>
-            <TextInputField multiline={props.multiLine} multiLine={props.multiLine} numberOfLines={4} maxLength={400} value={value} onChangeText={(text) => setValue(text)} ref={props.inputRef}/>
+            <TextInputField multiline={props.multiLine} multiLine={props.multiLine} numberOfLines={4} maxLength={400} value={props.value} onChangeText={(text) => props.setValue(text)}/>
         </InputFieldContainer>
     )
 }

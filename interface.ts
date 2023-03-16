@@ -15,10 +15,10 @@ export interface IRoute{
         lat:number,
         long:number,
     },
-    checkMarks?:{
-        parking?:boolean,
-        cafe?:boolean,
-        hotel?:boolean
+    checkMarks:{
+        parking:number,
+        shopNear:number,
+        hotelNear:number
     },
     addInfo?:string,
 

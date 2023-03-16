@@ -3,7 +3,7 @@ import { MainView } from './styles/Styled.styled';
 import { useEffect, useState } from 'react';
 import CountrySelectWindow from './layout/CountrySelectWindow/CountrySelectWindow';
 import HomePage from './layout/HomePage/HomePage';
-import { readFile } from './database';
+import { readFile, saveFile } from './database';
 import { IRoute } from './interface';
 import NewRoutePage from './layout/NewRoutePage/NewRoutePage';
 import { BackHandler } from 'react-native';
@@ -55,7 +55,22 @@ export default function App() {
       setUsedCountries(usedCountriesArray);
   }, [data]);
 
-  
+  useEffect(() => {
+    if(data.length > 0){
+      saveFile({
+        routes:data
+      });
+    }
+  }, [data]);
+
+  function appendData(newRoute:IRoute){
+    setData(prev => {
+      let prevData = [...prev];
+      prevData.push(newRoute);
+      return prevData;
+    })
+  }
+
   useEffect(() => {
     readFile().then(res => setData(res.routes));
   },[]);
@@ -65,7 +80,7 @@ export default function App() {
         {windowToggle.trim() === "" && <HomePage data={data} search={search} setSearch={setSearch}  country={country} setWindowToggle={setWindowToggle}/>}
         {windowToggle === "country" && <CountrySelectWindow setWindowToggleCustom={setWindowToggle} usedCountries={usedCountries} setCountry={setCountry} setWindowToggle={() => setWindowToggle("")} />}
         {windowToggle === "new route country" && <CountrySelectWindow setWindowToggleCustom={setWindowToggle} usedCountries={countries.slice(1,countries.length)} setCountry={setNewCountrySelect} setWindowToggle={() => setWindowToggle("new route")} />}
-        {windowToggle === "new route" && <NewRoutePage countrySelected={newCountrySelect} setWindowToggle={setWindowToggle} windowToggle={windowToggle}/> }
+        {windowToggle === "new route" && <NewRoutePage addNewRoute={appendData} countrySelected={newCountrySelect} setWindowToggle={setWindowToggle} windowToggle={windowToggle}/> }
       </MainView>
     </ThemeProvider>
   );
