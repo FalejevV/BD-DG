@@ -2,7 +2,7 @@ import * as FileSystem from 'expo-file-system';
 import randomData from './randomData';
 import { IDBFile, IRoute } from './interface';
 
-const fileName = "DGJSONlolz.txt";
+const fileName = "DGJSON1gay.txt";
 
 const saveFile = async (data:IDBFile) => {
   FileSystem.writeAsStringAsync(

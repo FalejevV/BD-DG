@@ -6,7 +6,7 @@ import InputField from "../../components/InputField/InputField";
 import { useEffect, useState } from "react";
 import CCheckBox from "../../components/CCheckBox/CCheckBox";
 import * as ScreenOrientation from 'expo-screen-orientation';
-
+import uuid from 'react-native-uuid';
 
 function NewRoutePage(props:{
     setWindowToggle:Function,
@@ -54,6 +54,7 @@ function NewRoutePage(props:{
     function saveRoute(){
         if(name.trim() !== "" && address.trim() !== "" && index.trim() !== "" && lat.trim() !== "" && long.trim() !== "" && city.trim() !== ""){
             let newRoute = {
+                id:uuid.v4().toString(),
                 company:name,
                 country: props.countrySelected,
                 city:city,

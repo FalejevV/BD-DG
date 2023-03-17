@@ -14,6 +14,7 @@ function HomePage(props:{
     search:string,
     setSearch:Function,
     data: IRoute[],
+    setRoutePreview:Function,
 }){
 
     const [viewCount, setViewCount] = useState(6);
@@ -53,7 +54,7 @@ function HomePage(props:{
             }
         });
 
-        return resultArray.reverse();
+        return resultArray;
     }
 
     useEffect(() => {
@@ -68,7 +69,7 @@ function HomePage(props:{
             </TotalConterContainer>
             <CardGridScroll>
                 <CardGridWrap>
-                    {getRoutes().map(route => <RouteCard key={uuid.v4().toString()} companyName={route.company} country={route.country} address={route.address} cIndex={route.index.toString()} />)}
+                    {getRoutes().map(route => <RouteCard key={uuid.v4().toString()} setRoutePreview={() => props.setRoutePreview(route)} id={route.id} companyName={route.company} country={route.country} address={route.address} cIndex={route.index.toString()} />)}
                     {viewCount >= filteredRoutes.length && <EmptyItem />}
                     {viewCount < filteredRoutes.length && 
                         <LoadMoreContainer>

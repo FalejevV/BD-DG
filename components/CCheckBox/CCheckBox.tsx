@@ -2,7 +2,7 @@ import { useState } from "react";
 import { CheckBoxContainer, CheckBoxIcon, CheckBoxIconWrap, CheckBoxTitle } from "./CCheckBox.styled";
 import { TouchableWithoutFeedback } from "react-native";
 
-const checkboxImages = [
+export const checkboxImages = [
     require("../../assets/question.png"),
     require("../../assets/check.png"),
     require("../../assets/close.png")

@@ -8,6 +8,7 @@ import { IRoute } from './interface';
 import NewRoutePage from './layout/NewRoutePage/NewRoutePage';
 import { BackHandler } from 'react-native';
 import countries from './countries';
+import RoutePage from './layout/RoutePage/RoutePage';
 
 const lightTheme = {
   bgColor:"#E1D5C9",
@@ -29,10 +30,14 @@ export default function App() {
   const [usedCountries, setUsedCountries] = useState<string[]>([]);
 
   const [newCountrySelect, setNewCountrySelect] = useState("Страна");
+
+  const [routePreview, setRoutePreview] = useState<null | IRoute>(null);
+
   useEffect(() => {
     const subscription = BackHandler.addEventListener('hardwareBackPress', () => {
-      if (windowToggle.trim() !== "") {
+      if (windowToggle.trim() !== "" || routePreview !== null) {
         setWindowToggle("");
+        setRoutePreview(null);
         return true;
       }else{
         return false;
@@ -40,7 +45,8 @@ export default function App() {
     });
     
     return () => subscription.remove();
-  },[windowToggle]);
+  },[windowToggle,routePreview]);
+  
 
   useEffect(() => {
       let usedCountriesArray:string[] = [];
@@ -66,7 +72,7 @@ export default function App() {
   function appendData(newRoute:IRoute){
     setData(prev => {
       let prevData = [...prev];
-      prevData.push(newRoute);
+      prevData.unshift(newRoute);
       return prevData;
     })
   }
@@ -74,13 +80,18 @@ export default function App() {
   useEffect(() => {
     readFile().then(res => setData(res.routes));
   },[]);
+
   return (
     <ThemeProvider theme={lightTheme}>
       <MainView>
-        {windowToggle.trim() === "" && <HomePage data={data} search={search} setSearch={setSearch}  country={country} setWindowToggle={setWindowToggle}/>}
-        {windowToggle === "country" && <CountrySelectWindow setWindowToggleCustom={setWindowToggle} usedCountries={usedCountries} setCountry={setCountry} setWindowToggle={() => setWindowToggle("")} />}
-        {windowToggle === "new route country" && <CountrySelectWindow setWindowToggleCustom={setWindowToggle} usedCountries={countries.slice(1,countries.length)} setCountry={setNewCountrySelect} setWindowToggle={() => setWindowToggle("new route")} />}
-        {windowToggle === "new route" && <NewRoutePage addNewRoute={appendData} countrySelected={newCountrySelect} setWindowToggle={setWindowToggle} windowToggle={windowToggle}/> }
+          {routePreview === null && <>
+            {windowToggle.trim() === "" && <HomePage setRoutePreview={setRoutePreview} data={data} search={search} setSearch={setSearch}  country={country} setWindowToggle={setWindowToggle}/>}
+            {windowToggle === "country" && <CountrySelectWindow setWindowToggleCustom={setWindowToggle} usedCountries={usedCountries} setCountry={setCountry} setWindowToggle={() => setWindowToggle("")} />}
+            {windowToggle === "new route country" && <CountrySelectWindow setWindowToggleCustom={setWindowToggle} usedCountries={countries.slice(1,countries.length)} setCountry={setNewCountrySelect} setWindowToggle={() => setWindowToggle("new route")} />}
+            {windowToggle === "new route" && <NewRoutePage addNewRoute={appendData} countrySelected={newCountrySelect} setWindowToggle={setWindowToggle} windowToggle={windowToggle}/> }
+          </>}
+
+          {routePreview && <RoutePage route={routePreview} setRoutePreview={setRoutePreview} />}          
       </MainView>
     </ThemeProvider>
   );

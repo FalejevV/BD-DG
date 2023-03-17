@@ -6,6 +6,7 @@ export interface IDBFile{
 }
 
 export interface IRoute{
+    id:string,
     company:string,
     country: typeof countries[number],
     city:string,
