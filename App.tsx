@@ -9,6 +9,7 @@ import NewRoutePage from './layout/NewRoutePage/NewRoutePage';
 import { BackHandler } from 'react-native';
 import countries from './countries';
 import RoutePage from './layout/RoutePage/RoutePage';
+import RouteEditPage from './layout/RouteEditPage/RouteEditPage';
 
 const lightTheme = {
   bgColor:"#E1D5C9",
@@ -30,7 +31,7 @@ export default function App() {
   const [usedCountries, setUsedCountries] = useState<string[]>([]);
 
   const [newCountrySelect, setNewCountrySelect] = useState("Страна");
-
+  const [editCountrySelect, setEditCountrySelect] = useState("");
   const [routePreview, setRoutePreview] = useState<null | IRoute>(null);
 
   useEffect(() => {
@@ -77,6 +78,17 @@ export default function App() {
     })
   }
 
+  function editRoute(editRoute:IRoute){
+    setData(routes => routes.map((route:IRoute) => {
+      if(route.id === editRoute.id){
+        return editRoute;
+      }else{
+        return route;
+      }
+    }));
+    setRoutePreview(editRoute);
+  }
+
   useEffect(() => {
     readFile().then(res => setData(res.routes));
   },[]);
@@ -91,7 +103,9 @@ export default function App() {
             {windowToggle === "new route" && <NewRoutePage addNewRoute={appendData} countrySelected={newCountrySelect} setWindowToggle={setWindowToggle} windowToggle={windowToggle}/> }
           </>}
 
-          {routePreview && <RoutePage route={routePreview} setRoutePreview={setRoutePreview} />}          
+          {routePreview && windowToggle.trim() === "" && <RoutePage route={routePreview} setRoutePreview={setRoutePreview} setWindowToggle={setWindowToggle} />}
+          {routePreview && windowToggle.trim() === "edit" && <RouteEditPage data={routePreview} editNewRoute={editRoute} countrySelected={editCountrySelect} setWindowToggle={setWindowToggle} windowToggle={windowToggle}/>}  
+          {routePreview && windowToggle === "edit country" && <CountrySelectWindow setWindowToggleCustom={setWindowToggle} usedCountries={countries.slice(1,countries.length)} setCountry={setEditCountrySelect} setWindowToggle={() => setWindowToggle("edit")} />}
       </MainView>
     </ThemeProvider>
   );

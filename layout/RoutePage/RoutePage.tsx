@@ -12,6 +12,7 @@ import * as ScreenOrientation from 'expo-screen-orientation';
 function RoutePage(props:{
     route:IRoute,
     setRoutePreview:Function,
+    setWindowToggle:Function,
 }){
 
 
@@ -51,7 +52,7 @@ function RoutePage(props:{
             <RouteHeader>
                 <RouteTitleAndEditContainer>
                     <Title>{props.route.company}</Title>
-                    <ImageButton onPress={() =>{}} imageName={"edit"} size="26px"/>
+                    <ImageButton onPress={() =>props.setWindowToggle("edit")} imageName={"edit"} size="26px"/>
                 </RouteTitleAndEditContainer>
                 <ImageButton onPress={() => props.setRoutePreview(null)} imageName={"close"} size="35px" padding="0px"/>
             </RouteHeader>
@@ -79,7 +80,7 @@ function RoutePage(props:{
                     <RouteRightInfoBar>
                         <Title>Дополнительная информация</Title>
                         <RouteRightInfoText>
-                            {props.route.addInfo}
+                            {props.route.addInfo.length > 0 ? props.route.addInfo : "Информация отсутствует"}
                         </RouteRightInfoText>
                     </RouteRightInfoBar>
                 </RouteInfoContainer>

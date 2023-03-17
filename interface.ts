@@ -21,6 +21,6 @@ export interface IRoute{
         shopNear:number,
         hotelNear:number
     },
-    addInfo?:string,
+    addInfo:string,
 
 }
