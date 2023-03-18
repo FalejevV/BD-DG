@@ -3,10 +3,11 @@ import { FMWrap, FloatingBackgroundFrame, FloatingMenuContainer } from "./Floati
 
 
 function FloatingMenu(props:{
-    setWindowToggle:Function
+    setWindowToggle:Function,
+    positionSide:0 | 1,
 }){
     return(
-        <FMWrap>
+        <FMWrap positionSide={props.positionSide || 0}>
             <FloatingBackgroundFrame></FloatingBackgroundFrame>
             <FloatingMenuContainer>
                 <ImageButton padding="5px" onPress={() => props.setWindowToggle("settings")} imageName={("settings")}/>

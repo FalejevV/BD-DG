@@ -24,7 +24,8 @@
     "react-native-fs": "^2.20.0",
     "react-native-uuid": "^2.0.1",
     "react-native-web": "~0.18.10",
-    "styled-components": "^5.3.8"
+    "styled-components": "^5.3.8",
+    "expo-document-picker": "~11.2.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

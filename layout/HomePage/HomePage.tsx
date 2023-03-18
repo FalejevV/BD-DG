@@ -19,7 +19,8 @@ function HomePage(props:{
         bgColor:string,
         frameColor:string,
         accentColor:string,
-    }
+    },
+    menuPosition:1 | 0,
 }){
 
     const [viewCount, setViewCount] = useState(6);
@@ -86,7 +87,7 @@ function HomePage(props:{
                         
                 </CardGridWrap>
             </CardGridScroll>
-            <FloatingMenu setWindowToggle={props.setWindowToggle} />
+            <FloatingMenu setWindowToggle={props.setWindowToggle} positionSide={props.menuPosition} />
         </>
     )
 }

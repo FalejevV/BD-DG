@@ -42,13 +42,12 @@ export const InputsContainer = styled.View<{
 export const CheckBoxesContainer = styled.View<{
     isSmall: boolean,
 }>`
-    min-width: 400px;
-    width:100%;
+    flex:1;
     max-width:450px;
+    min-width: 350px;
     display: flex;
     flex-direction: column;
     gap:10px;
-
     ${({ isSmall }) => isSmall && css`
         max-width:100%;
     `}

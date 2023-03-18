@@ -1,5 +1,13 @@
 {
   "expo": {
+    "plugins": [
+      [
+        "expo-document-picker",
+        {
+          "iCloudContainerEnvironment": "Production"
+        }
+      ]
+    ],
     "name": "DG",
     "slug": "bddg",
     "version": "1.0.0",

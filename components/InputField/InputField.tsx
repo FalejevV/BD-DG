@@ -12,7 +12,7 @@ function InputField(props:{
 }){
 
     return(
-        <InputFieldContainer maxWidth={props.maxWidth || "300px"}>
+        <InputFieldContainer multiline={props.multiLine} maxWidth={props.maxWidth || "300px"}>
             <InputTitle>{props.title}</InputTitle>
             <TextInputField multiline={props.multiLine} multiLine={props.multiLine} numberOfLines={4} maxLength={400} value={props.value} onChangeText={(text) => props.setValue(text)}/>
         </InputFieldContainer>

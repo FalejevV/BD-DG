@@ -2,6 +2,7 @@ import styled, { css } from "styled-components/native";
 
 export const InputFieldContainer = styled.View<{
     maxWidth:string,
+    multiline?:boolean,
 }>`
     width:100%;
     max-width: ${({maxWidth}) => maxWidth};
@@ -9,6 +10,11 @@ export const InputFieldContainer = styled.View<{
     flex-direction: column;
     gap: 10px;
     position: relative;
+
+    ${({ multiline }) => multiline && css`
+        max-width:100%;
+        flex:1;
+    `}
 `
 export const TextInputField = styled.TextInput<{
     multiLine?:boolean,
@@ -23,6 +29,7 @@ export const TextInputField = styled.TextInput<{
     color:${({ theme }) => theme.accentColor || "red"};
     ${({ multiLine }) => multiLine && css`
         height:auto;
+        flex:1;
     `}
 `
 

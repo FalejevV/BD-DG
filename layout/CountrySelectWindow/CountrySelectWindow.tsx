@@ -13,7 +13,7 @@ function CountrySelectWindow(props:{
       
     return(
         <CountrySelectWindowContainer>
-           <PageHeader setWindowToggle={() => props.setWindowToggle("")} title={"Выбор страны"} />
+           <PageHeader setWindowToggle={() => props.setWindowToggleCustom("")} title={"Выбор страны"} />
             <CSWScrollView >
                 {props.usedCountries.map((country:string, index:number) => <CountryButtonWrapper key={uuid.v4().toString()}><CButton text={country} onPress={() => {props.setCountry(country); props.setWindowToggle("")}} /></CountryButtonWrapper>)}
             </CSWScrollView>

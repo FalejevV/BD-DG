@@ -71,8 +71,14 @@ export default function App() {
         settings: settings
       });
       console.log("saved")
+    }else{
+      if(!isLoaded){
+        setTimeout(() => {
+          setIsLoaded(true);
+        }, 1500);
+      }
     }
-  }, [data,settings,isLoaded]);
+  }, [data,settings]);
 
   function appendData(newRoute:IRoute){
     setData(prev => {
@@ -96,20 +102,17 @@ export default function App() {
   useEffect(() => {
     readFile().then(res => {
       setData(res.routes);
-      if(res.settings.theme){
+      if(res.settings.theme !== undefined){
         setSettings(res.settings);
       }
     });
-    setTimeout(() => {
-      setIsLoaded(true);
-    }, 2000);
   },[]);
 
   return (
     <ThemeProvider theme={settings.theme === 0 ? lightTheme : darkTheme}>
       <MainView>
           {routePreview === null && <>
-            {windowToggle.trim() === "" && <HomePage setRoutePreview={setRoutePreview} data={data} search={search} setSearch={setSearch}  country={country} setWindowToggle={setWindowToggle} theme={settings.theme === 0 ? lightTheme : darkTheme}/> }
+            {windowToggle.trim() === "" && <HomePage menuPosition={settings.floatingMenuPosition} setRoutePreview={setRoutePreview} data={data} search={search} setSearch={setSearch}  country={country} setWindowToggle={setWindowToggle} theme={settings.theme === 0 ? lightTheme : darkTheme}/> }
             {windowToggle === "country" && <CountrySelectWindow setWindowToggleCustom={setWindowToggle} usedCountries={usedCountries} setCountry={setCountry} setWindowToggle={() => setWindowToggle("")} />}
             {windowToggle === "new route country" && <CountrySelectWindow setWindowToggleCustom={setWindowToggle} usedCountries={countries.slice(1,countries.length)} setCountry={setNewCountrySelect} setWindowToggle={() => setWindowToggle("new route")} />}
             {windowToggle === "new route" && <NewRoutePage addNewRoute={appendData} countrySelected={newCountrySelect} setWindowToggle={setWindowToggle} windowToggle={windowToggle}/> }

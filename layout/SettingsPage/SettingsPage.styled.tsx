@@ -19,9 +19,20 @@ export const SwitchButtonContainer = styled.View`
     flex-direction: row;
     align-items: center;
     gap:15px;
+    max-width: 300px;
 `
 
-export const SwitchButtonText = styled.Text`
+export const SwitchButtonTitle = styled.Text`
     color:${({ theme }) => theme.accentColor || "red"};
     font-size: 18px;
+`
+
+export const SwitchButtonTextButton = styled.Text`
+    padding:7px 20px;
+    text-align: center;
+    color:${({ theme }) => theme.accentColor || "red"};
+    font-size: 18px;
+    background-color: ${({ theme }) => theme.frameColor || "red"};
+    border-radius: 5px;
+    border: 2px solid ${({ theme }) => theme.accentColor || "red"};
 `

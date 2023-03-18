@@ -69,7 +69,7 @@ function RouteEditPage(props:{
                 checkMarks:{
                     parking: isParking,
                     shopNear:isShopNear,
-                    hotelNear:isParking
+                    hotelNear:isHotelNear
                 },
                 addInfo: addInfo,
             }

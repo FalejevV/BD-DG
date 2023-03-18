@@ -1,4 +1,4 @@
-import styled from "styled-components/native";
+import styled, { css } from "styled-components/native";
 
 export const FloatingMenuContainer = styled.View`
     border:2px solid ${({ theme }) => theme.accentColor};
@@ -23,9 +23,17 @@ export const FloatingBackgroundFrame = styled.View`
     border-radius: 5px;
 `
 
-export const FMWrap = styled.View`
+export const FMWrap = styled.View<{
+    positionSide: 1 | 0,
+}>`
     position: absolute;
     bottom: 20px;
-    left:20px;
-    
+
+    ${({ positionSide }) => positionSide === 1 && css`
+        right:20px;
+    `}
+
+    ${({ positionSide }) => positionSide === 0 && css`
+        left:20px;
+    `}
 `
