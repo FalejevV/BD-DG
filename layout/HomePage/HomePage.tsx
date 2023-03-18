@@ -15,6 +15,11 @@ function HomePage(props:{
     setSearch:Function,
     data: IRoute[],
     setRoutePreview:Function,
+    theme:{
+        bgColor:string,
+        frameColor:string,
+        accentColor:string,
+    }
 }){
 
     const [viewCount, setViewCount] = useState(6);
@@ -63,7 +68,7 @@ function HomePage(props:{
 
     return(
         <>
-            <Header search={props.search} setSearch={props.setSearch}  country={props.country} setWindowToggle={() => props.setWindowToggle("country")}/>
+            <Header placeholderColor={props.theme.accentColor} search={props.search} setSearch={props.setSearch}  country={props.country} setWindowToggle={() => props.setWindowToggle("country")}/>
             <TotalConterContainer>
                 <TotalCounterText>Найдено записей: {filteredRoutes.length} </TotalCounterText>
             </TotalConterContainer>

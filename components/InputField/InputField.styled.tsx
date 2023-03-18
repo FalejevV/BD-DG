@@ -20,7 +20,7 @@ export const TextInputField = styled.TextInput<{
     background-color: ${({ theme }) => theme.frameColor || "red"};
     border:2px solid ${({ theme }) => theme.accentColor || "red"};
     border-radius: 5px;
-
+    color:${({ theme }) => theme.accentColor || "red"};
     ${({ multiLine }) => multiLine && css`
         height:auto;
     `}

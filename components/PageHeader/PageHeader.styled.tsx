@@ -10,6 +10,7 @@ export const PageHeaderContainer = styled.View`
     border-bottom-width: 1px;
     border-bottom-color:${({ theme }) => theme.accentColor || "red"};
     margin-bottom: 20px;
+    background-color:${({ theme }) => theme.frameColor || "red"};
 ` 
 
 export const CloseContainer = styled.View`

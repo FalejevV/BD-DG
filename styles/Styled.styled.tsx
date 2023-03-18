@@ -32,7 +32,7 @@ export const VerticalDivider = styled.View<{
 
 export const Title = styled.Text`
     font-size: 20px;
-    ${({ theme }) => theme.accentColor || "red"};
+    color:${({ theme }) => theme.accentColor || "red"};
     font-weight: bold;
 `
 

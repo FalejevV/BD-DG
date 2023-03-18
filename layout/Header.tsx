@@ -17,10 +17,11 @@ function Header(props:{
     setWindowToggle:Function,
     search:string,
     setSearch:Function,
+    placeholderColor:string,
 }){
     return(
         <HeaderContainer>
-            <SearchBar search={props.search} setSearch={props.setSearch} />
+            <SearchBar placeholderColor={props.placeholderColor} search={props.search} setSearch={props.setSearch} />
             <CountryListButton country={props.country} setWindowToggle={() => props.setWindowToggle()} />
         </HeaderContainer>
     )

@@ -5,11 +5,12 @@ import { TouchableWithoutFeedback } from "react-native";
 
 function SearchBar(props:{
     search:string,
-    setSearch:Function
+    setSearch:Function,
+    placeholderColor:string
 }){
     return(
         <SearchBarContainer>
-            <SearchBarInput value={props.search} onChangeText={(text) => props.setSearch(text)} placeholder="Поиск"></SearchBarInput>
+            <SearchBarInput value={props.search} placeholderTextColor={props.placeholderColor} onChangeText={(text) => props.setSearch(text)} placeholder="Поиск"></SearchBarInput>
             {props.search.trim() !== "" &&
                 <TouchableWithoutFeedback onPress={() => props.setSearch('')}>
                     <SearchBarClearIcon source={require("../../assets/close.png")} />
