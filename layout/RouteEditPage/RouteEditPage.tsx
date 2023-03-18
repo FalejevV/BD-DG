@@ -1,12 +1,13 @@
 import React, { Dimensions, TouchableWithoutFeedback } from "react-native";
 import ImageButton from "../../components/ImageButton/ImageButton";
 import { Title, VerticalDivider } from "../../styles/Styled.styled";
-import { CheckBoxesContainer, CloseContainer, FormContainer, FormScroll, InputsContainer, LineFlexContainer, NewRoutePageContainer, NewRoutePageHeader, NewRouteSubmitButtonText } from "../NewRoutePage/NewRoutePage.styled";
+import { CheckBoxesContainer, FormContainer, FormScroll, InputsContainer, LineFlexContainer, NewRoutePageContainer, NewRouteSubmitButtonText } from "../NewRoutePage/NewRoutePage.styled";
 import InputField from "../../components/InputField/InputField";
 import { useEffect, useState } from "react";
 import CCheckBox from "../../components/CCheckBox/CCheckBox";
 import * as ScreenOrientation from 'expo-screen-orientation';
 import { IRoute } from "../../interface";
+import PageHeader from "../../components/PageHeader/PageHeader";
 
 function RouteEditPage(props:{
     setWindowToggle:Function,
@@ -81,12 +82,7 @@ function RouteEditPage(props:{
 
     return(
         <NewRoutePageContainer>
-            <NewRoutePageHeader>
-                <Title>Новая запись</Title>
-                <CloseContainer>
-                    <ImageButton onPress={() => props.setWindowToggle("")} imageName={"close"} />
-                </CloseContainer>
-            </NewRoutePageHeader>
+            <PageHeader setWindowToggle={() => props.setWindowToggle("")} title={"Изменение записи"} />
 
             <FormScroll>
                 <FormContainer isSmall={isSmallScreenMedia}>

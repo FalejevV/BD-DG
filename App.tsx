@@ -4,12 +4,13 @@ import { useEffect, useState } from 'react';
 import CountrySelectWindow from './layout/CountrySelectWindow/CountrySelectWindow';
 import HomePage from './layout/HomePage/HomePage';
 import { readFile, saveFile } from './database';
-import { IRoute } from './interface';
+import { IRoute, ISettings } from './interface';
 import NewRoutePage from './layout/NewRoutePage/NewRoutePage';
 import { BackHandler } from 'react-native';
 import countries from './countries';
 import RoutePage from './layout/RoutePage/RoutePage';
 import RouteEditPage from './layout/RouteEditPage/RouteEditPage';
+import SettingsPage from './layout/SettingsPage/SettingsPage';
 
 const lightTheme = {
   bgColor:"#E1D5C9",
@@ -29,11 +30,12 @@ export default function App() {
   const [search,setSearch] = useState("");
   const [data, setData] = useState<IRoute[]>([]);
   const [usedCountries, setUsedCountries] = useState<string[]>([]);
-
+  const [settings, setSetting] = useState<ISettings>({theme:0, floatingMenuPosition:0});
   const [newCountrySelect, setNewCountrySelect] = useState("Страна");
   const [editCountrySelect, setEditCountrySelect] = useState("");
   const [routePreview, setRoutePreview] = useState<null | IRoute>(null);
 
+  
   useEffect(() => {
     const subscription = BackHandler.addEventListener('hardwareBackPress', () => {
       if (windowToggle.trim() !== "" || routePreview !== null) {
@@ -65,10 +67,11 @@ export default function App() {
   useEffect(() => {
     if(data.length > 0){
       saveFile({
-        routes:data
+        routes: data,
+        settings: settings
       });
     }
-  }, [data]);
+  }, [data,settings]);
 
   function appendData(newRoute:IRoute){
     setData(prev => {
@@ -90,7 +93,12 @@ export default function App() {
   }
 
   useEffect(() => {
-    readFile().then(res => setData(res.routes));
+    readFile().then(res => {
+      setData(res.routes);
+      if(res.settings.theme){
+        setSetting(res.settings);
+      }
+    });
   },[]);
 
   return (
@@ -101,6 +109,7 @@ export default function App() {
             {windowToggle === "country" && <CountrySelectWindow setWindowToggleCustom={setWindowToggle} usedCountries={usedCountries} setCountry={setCountry} setWindowToggle={() => setWindowToggle("")} />}
             {windowToggle === "new route country" && <CountrySelectWindow setWindowToggleCustom={setWindowToggle} usedCountries={countries.slice(1,countries.length)} setCountry={setNewCountrySelect} setWindowToggle={() => setWindowToggle("new route")} />}
             {windowToggle === "new route" && <NewRoutePage addNewRoute={appendData} countrySelected={newCountrySelect} setWindowToggle={setWindowToggle} windowToggle={windowToggle}/> }
+            {windowToggle === "settings" && <SettingsPage setWindowToggle={setWindowToggle} />}
           </>}
 
           {routePreview && windowToggle.trim() === "" && <RoutePage route={routePreview} setRoutePreview={setRoutePreview} setWindowToggle={setWindowToggle} />}

@@ -3,6 +3,7 @@ const images = {
     close: require("./assets/close.png"),
     check: require("./assets/check.png"),
     edit: require("./assets/edit.png"),
+    settings: require("./assets/settings.png"),
 };
 
 export default images;

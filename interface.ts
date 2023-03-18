@@ -2,7 +2,7 @@ import countries from "./countries";
 
 export interface IDBFile{
     routes: IRoute[],
-    
+    settings: ISettings,
 }
 
 export interface IRoute{
@@ -23,4 +23,9 @@ export interface IRoute{
     },
     addInfo:string,
 
+}
+
+export interface ISettings{
+    theme:0 | 1,
+    floatingMenuPosition: 0 | 1,
 }
