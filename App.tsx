@@ -3,7 +3,7 @@ import { MainView } from './styles/Styled.styled';
 import { useEffect, useState } from 'react';
 import CountrySelectWindow from './layout/CountrySelectWindow/CountrySelectWindow';
 import HomePage from './layout/HomePage/HomePage';
-import { readFile, saveFile } from './database';
+import { exportDatabase, importDatabase, readFile, readSettingsFile, saveFile, saveSettingsFile } from './database';
 import { IRoute, ISettings } from './interface';
 import NewRoutePage from './layout/NewRoutePage/NewRoutePage';
 import { BackHandler } from 'react-native';
@@ -65,10 +65,15 @@ export default function App() {
   }, [data]);
 
   useEffect(() => {
+    if(isLoaded){
+      saveSettingsFile(settings);
+    }
+  },[settings]);
+
+  useEffect(() => {
     if(data.length > 0 && isLoaded){
       saveFile({
-        routes: data,
-        settings: settings
+        routes: data
       });
       console.log("saved")
     }else{
@@ -78,7 +83,7 @@ export default function App() {
         }, 1500);
       }
     }
-  }, [data,settings]);
+  }, [data]);
 
   function appendData(newRoute:IRoute){
     setData(prev => {
@@ -99,12 +104,28 @@ export default function App() {
     setRoutePreview(editRoute);
   }
 
+  function exportDB(){
+    exportDatabase({
+      routes: data
+    });
+    setWindowToggle('');
+  }
+
+  function importDB(uri:string,){
+    importDatabase(uri).then((res) => {
+      if (res?.routes){
+        setData(res.routes);
+        alert("Загружаю базу данных");
+      }
+    });
+  }
+
   useEffect(() => {
     readFile().then(res => {
-      setData(res.routes);
-      if(res.settings.theme !== undefined){
-        setSettings(res.settings);
-      }
+      setData(res.routes)
+    });
+    readSettingsFile().then((res:ISettings) => {
+      setSettings(res);
     });
   },[]);
 
@@ -116,7 +137,7 @@ export default function App() {
             {windowToggle === "country" && <CountrySelectWindow setWindowToggleCustom={setWindowToggle} usedCountries={usedCountries} setCountry={setCountry} setWindowToggle={() => setWindowToggle("")} />}
             {windowToggle === "new route country" && <CountrySelectWindow setWindowToggleCustom={setWindowToggle} usedCountries={countries.slice(1,countries.length)} setCountry={setNewCountrySelect} setWindowToggle={() => setWindowToggle("new route")} />}
             {windowToggle === "new route" && <NewRoutePage addNewRoute={appendData} countrySelected={newCountrySelect} setWindowToggle={setWindowToggle} windowToggle={windowToggle}/> }
-            {windowToggle === "settings" && <SettingsPage settings={settings} setSettings={setSettings} setWindowToggle={setWindowToggle} />}
+            {windowToggle === "settings" && <SettingsPage importDB={importDB} exportDB={exportDB} settings={settings} setSettings={setSettings} setWindowToggle={setWindowToggle} />}
           </>}
 
           {routePreview && windowToggle.trim() === "" && <RoutePage route={routePreview} setRoutePreview={setRoutePreview} setWindowToggle={setWindowToggle} />}

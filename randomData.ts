@@ -96,10 +96,6 @@ const randomRoutes:IRoute[] = [
 
 const randomData:IDBFile = {
     routes: randomRoutes,
-    settings:{
-        theme: 0,
-        floatingMenuPosition: 0
-    }
 }
 
 export default randomData;

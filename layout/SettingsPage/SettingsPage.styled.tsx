@@ -1,5 +1,10 @@
 import styled from "styled-components/native";
 
+export const SettingsScroll = styled.ScrollView`
+    width:100%;
+    height:100%;
+`
+
 export const SettingsContainer = styled.View`
     display: flex;
     flex-direction: column;
@@ -35,4 +40,23 @@ export const SwitchButtonTextButton = styled.Text`
     background-color: ${({ theme }) => theme.frameColor || "red"};
     border-radius: 5px;
     border: 2px solid ${({ theme }) => theme.accentColor || "red"};
+`
+
+export const InfoContainer = styled.View`
+    width:100%;
+    max-width: 400px;
+    border-radius: 5px;
+    background-color: ${({ theme }) => theme.frameColor || "red"};
+    border: 2px solid ${({ theme }) => theme.accentColor || "red"};
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding:15px;
+    gap:15px;
+`
+
+export const InfoContainerText = styled.Text`
+    width:100%;
+    text-align: left;
+    font-size: 17px;
 `

@@ -2,7 +2,6 @@ import countries from "./countries";
 
 export interface IDBFile{
     routes: IRoute[],
-    settings: ISettings,
 }
 
 export interface IRoute{
