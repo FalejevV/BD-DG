@@ -3,7 +3,7 @@ import RouteCard from "../../components/RouteCard/RouteCard";
 import Header from "../Header";
 import { CardGridScroll, CardGridWrap, EmptyItem, LoadMoreContainer, LoadMoreText, TotalConterContainer, TotalCounterText } from "./HomePage.styled";
 import uuid from 'react-native-uuid';
-import { TouchableWithoutFeedback } from "react-native";
+import { TouchableOpacity } from "react-native";
 import { IRoute } from "../../interface";
 import FloatingMenu from "../FloatingMenu/FloatingMenu";
 
@@ -79,9 +79,9 @@ function HomePage(props:{
                     {viewCount >= filteredRoutes.length && <EmptyItem />}
                     {viewCount < filteredRoutes.length && 
                         <LoadMoreContainer>
-                            <TouchableWithoutFeedback onPress={increaseViewCount}>
+                            <TouchableOpacity onPress={increaseViewCount}>
                                 <LoadMoreText>Загрузить еще</LoadMoreText>
-                            </TouchableWithoutFeedback>
+                            </TouchableOpacity>
                         </LoadMoreContainer>
                     }
                         

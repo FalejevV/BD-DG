@@ -67,8 +67,8 @@ function RoutePage(props:{
 
                         <Divider></Divider>
 
-                        <RouteInfoItem infoTitle={"Широта"} infoValue={props.route.cords.lat.toString()} />
-                        <RouteInfoItem infoTitle={"Долгота"} infoValue={props.route.cords.long.toString()} />
+                        <RouteInfoItem infoTitle={"Широта"} infoValue={props.route.cords.lat?.toString() || "0"} />
+                        <RouteInfoItem infoTitle={"Долгота"} infoValue={props.route.cords.long?.toString() || "0"} />
 
                         <Divider></Divider>
 

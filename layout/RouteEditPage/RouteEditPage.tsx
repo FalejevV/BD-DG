@@ -55,6 +55,11 @@ function RouteEditPage(props:{
 
     function editRoute(){
         if(name.trim() !== "" && address.trim() !== "" && index.trim() !== "" && lat.trim() !== "" && long.trim() !== "" && city.trim() !== ""){
+            if(!Number(lat) || !Number(long)){
+                alert("Используйте только цифры в полях 'Широта' и 'Долгота'");
+                return;
+            }
+            
             let editedRoute = {
                 id:props.data.id,
                 company:name,

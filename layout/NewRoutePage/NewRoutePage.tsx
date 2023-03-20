@@ -53,6 +53,11 @@ function NewRoutePage(props:{
 
     function saveRoute(){
         if(name.trim() !== "" && address.trim() !== "" && index.trim() !== "" && lat.trim() !== "" && long.trim() !== "" && city.trim() !== ""){
+            if(!Number(lat) || !Number(long)){
+                alert("Используйте только цифры в полях 'Широта' и 'Долгота'");
+                return;
+            }
+
             let newRoute = {
                 id:uuid.v4().toString(),
                 company:name,

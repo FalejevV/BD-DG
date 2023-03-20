@@ -120,6 +120,16 @@ export default function App() {
     });
   }
 
+  function clearDatabase(){
+    setData([]);
+    alert("База данных удалена");
+  }
+
+  function testDatabaseImport(database:IRoute[]){
+    setData(database);
+    alert("Загружена тестовая база нанных на 1000 записей");
+  }
+
   useEffect(() => {
     readFile().then(res => {
       setData(res.routes)
@@ -137,7 +147,7 @@ export default function App() {
             {windowToggle === "country" && <CountrySelectWindow setWindowToggleCustom={setWindowToggle} usedCountries={usedCountries} setCountry={setCountry} setWindowToggle={() => setWindowToggle("")} />}
             {windowToggle === "new route country" && <CountrySelectWindow setWindowToggleCustom={setWindowToggle} usedCountries={countries.slice(1,countries.length)} setCountry={setNewCountrySelect} setWindowToggle={() => setWindowToggle("new route")} />}
             {windowToggle === "new route" && <NewRoutePage addNewRoute={appendData} countrySelected={newCountrySelect} setWindowToggle={setWindowToggle} windowToggle={windowToggle}/> }
-            {windowToggle === "settings" && <SettingsPage importDB={importDB} exportDB={exportDB} settings={settings} setSettings={setSettings} setWindowToggle={setWindowToggle} />}
+            {windowToggle === "settings" && <SettingsPage testDatabaseImport={testDatabaseImport} clearDB={clearDatabase} importDB={importDB} exportDB={exportDB} settings={settings} setSettings={setSettings} setWindowToggle={setWindowToggle} />}
           </>}
 
           {routePreview && windowToggle.trim() === "" && <RoutePage route={routePreview} setRoutePreview={setRoutePreview} setWindowToggle={setWindowToggle} />}

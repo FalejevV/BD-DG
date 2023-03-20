@@ -1,4 +1,4 @@
-import styled from "styled-components/native";
+import styled, { css } from "styled-components/native";
 
 export const SettingsScroll = styled.ScrollView`
     width:100%;
@@ -9,6 +9,8 @@ export const SettingsContainer = styled.View`
     display: flex;
     flex-direction: column;
     gap:10px;
+    width:100%;
+    height:100%;
 `
 
 export const SettingsList = styled.View`
@@ -42,7 +44,13 @@ export const SwitchButtonTextButton = styled.Text`
     border: 2px solid ${({ theme }) => theme.accentColor || "red"};
 `
 
-export const InfoContainer = styled.View`
+export const SpaceTaker = styled.View`
+    flex:1 auto;
+`
+
+export const InfoContainer = styled.View<{
+    backgroundColor?:string,
+}>`
     width:100%;
     max-width: 400px;
     border-radius: 5px;
@@ -53,10 +61,22 @@ export const InfoContainer = styled.View`
     align-items: center;
     padding:15px;
     gap:15px;
+
+    ${({ backgroundColor }) => backgroundColor && css`
+        background-color: ${backgroundColor};
+    `}
 `
 
 export const InfoContainerText = styled.Text`
     width:100%;
     text-align: left;
     font-size: 17px;
+`
+
+export const ImportExportContainer = styled.View`
+    display: flex;
+    flex-direction: row;
+    width:100%;
+    flex-wrap: wrap;
+    gap:15px;
 `
