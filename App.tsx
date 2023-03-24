@@ -104,6 +104,20 @@ export default function App() {
     setRoutePreview(editRoute);
   }
 
+  function removeRoute(removeRoute:IRoute){
+    let routes:IRoute[] = [];
+
+    data.forEach((route:IRoute) =>{
+      if(route.id !== removeRoute.id){
+        routes.push(route);
+      }
+    });
+
+    setData(routes);
+    setWindowToggle("");
+    setRoutePreview(null);
+  }
+
   function exportDB(){
     exportDatabase({
       routes: data
@@ -150,7 +164,7 @@ export default function App() {
             {windowToggle === "settings" && <SettingsPage testDatabaseImport={testDatabaseImport} clearDB={clearDatabase} importDB={importDB} exportDB={exportDB} settings={settings} setSettings={setSettings} setWindowToggle={setWindowToggle} />}
           </>}
 
-          {routePreview && windowToggle.trim() === "" && <RoutePage route={routePreview} setRoutePreview={setRoutePreview} setWindowToggle={setWindowToggle} />}
+          {routePreview && windowToggle.trim() === "" && <RoutePage removeRoute={removeRoute} route={routePreview} setRoutePreview={setRoutePreview} setWindowToggle={setWindowToggle} />}
           {routePreview && windowToggle.trim() === "edit" && <RouteEditPage data={routePreview} editNewRoute={editRoute} countrySelected={editCountrySelect} setWindowToggle={setWindowToggle} windowToggle={windowToggle}/>}  
           {routePreview && windowToggle === "edit country" && <CountrySelectWindow setWindowToggleCustom={setWindowToggle} usedCountries={countries.slice(1,countries.length)} setCountry={setEditCountrySelect} setWindowToggle={() => setWindowToggle("edit")} />}
       </MainView>

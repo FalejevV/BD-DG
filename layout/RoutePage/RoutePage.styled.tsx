@@ -83,3 +83,12 @@ export const RouteRightInfoText = styled.Text`
     font-size:18px;
     ${({ theme }) => theme.accentColor || "red"};
 `
+
+export const RemoveRouteContainer = styled.View`
+    position:absolute;
+    bottom: 10px;
+    right:10px;
+    background-color: #ff8585;
+    border-radius:5px;
+    border:2px solid ${({ theme }) => theme.accentColor || "red"};
+`

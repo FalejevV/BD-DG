@@ -4,8 +4,8 @@ import ImageButton from "../../components/ImageButton/ImageButton";
 import RouteInfoItem from "../../components/RouteInfoItem/RouteInfoItem";
 import { IRoute } from "../../interface";
 import { Divider, Title } from "../../styles/Styled.styled";
-import { RouteContainer, RouteHeader, RouteInfoContainer, RouteInfoScroll, RouteLeftInfoBar, RouteRightInfoBar, RouteRightInfoText, RouteTitleAndEditContainer } from "./RoutePage.styled";
-import { Dimensions } from "react-native";
+import { RemoveRouteContainer, RouteContainer, RouteHeader, RouteInfoContainer, RouteInfoScroll, RouteLeftInfoBar, RouteRightInfoBar, RouteRightInfoText, RouteTitleAndEditContainer } from "./RoutePage.styled";
+import { Alert, Dimensions, TouchableOpacity } from "react-native";
 import * as ScreenOrientation from 'expo-screen-orientation';
 
 
@@ -13,6 +13,7 @@ function RoutePage(props:{
     route:IRoute,
     setRoutePreview:Function,
     setWindowToggle:Function,
+    removeRoute:Function,
 }){
 
 
@@ -37,6 +38,30 @@ function RoutePage(props:{
           ScreenOrientation.removeOrientationChangeListener(subscription);
         };
     }, []);
+    
+    function removePrompt(){
+        props.removeRoute(props.route);
+    }
+
+    const twoOptionAlertHandler = () => {
+        //function to make two option alert
+        Alert.alert(
+          //title
+          'Удаление записи',
+          //body
+          'Удалить '+props.route.company + "?",
+          [
+            { text: 'Удалить', onPress: () => removePrompt() },
+            {
+              text: 'Отмена',
+              onPress: () => {},
+              style: 'cancel',
+            },
+          ],
+          { cancelable: false }
+          //clicking out side of alert will not cancel
+        );
+      };
       
 
     return(
@@ -85,6 +110,10 @@ function RoutePage(props:{
                     </RouteRightInfoBar>
                 </RouteInfoContainer>
             </RouteInfoScroll>
+
+                <RemoveRouteContainer>
+                    <ImageButton size="25px" onPress={twoOptionAlertHandler} imageName={"delete"} />
+                </RemoveRouteContainer>
         </RouteContainer>
     )
 }
